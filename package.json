@@ -1,0 +1,15 @@
+{
+  "name": "care-package",
+  "version": "1.0.0",
+  "description": "個人店向け集客支援Webアプリ",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "type-check": "turbo type-check"
+  },
+  "packageManager": "pnpm@10.13.1"
+}
