@@ -1,0 +1,21 @@
+{
+  "name": "care-package",
+  "version": "1.0.0",
+  "description": "個人店向け集客支援Webアプリ",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "type-check": "turbo type-check"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "@biomejs/biome": "2.1.2",
+    "@types/node": "20.10.6",
+    "turbo": "2.5.5",
+    "typescript": "5.3.3"
+  }
+}
