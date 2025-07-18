@@ -11,9 +11,15 @@ importers:
       '@biomejs/biome':
         specifier: 2.1.2
         version: 2.1.2
+      '@types/node':
+        specifier: 20.10.6
+        version: 20.10.6
       turbo:
         specifier: 2.5.5
         version: 2.5.5
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
 
   packages/admin: {}
 
@@ -80,6 +86,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/node@20.10.6':
+    resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
+
   turbo-darwin-64@2.5.5:
     resolution: {integrity: sha512-RYnTz49u4F5tDD2SUwwtlynABNBAfbyT2uU/brJcyh5k6lDLyNfYKdKmqd3K2ls4AaiALWrFKVSBsiVwhdFNzQ==}
     cpu: [x64]
@@ -113,6 +122,14 @@ packages:
   turbo@2.5.5:
     resolution: {integrity: sha512-eZ7wI6KjtT1eBqCnh2JPXWNUAxtoxxfi6VdBdZFvil0ychCOTxbm7YLRBi1JSt7U3c+u3CLxpoPxLdvr/Npr3A==}
     hasBin: true
+
+  typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
 snapshots:
 
@@ -151,6 +168,10 @@ snapshots:
   '@biomejs/cli-win32-x64@2.1.2':
     optional: true
 
+  '@types/node@20.10.6':
+    dependencies:
+      undici-types: 5.26.5
+
   turbo-darwin-64@2.5.5:
     optional: true
 
@@ -177,3 +198,7 @@ snapshots:
       turbo-linux-arm64: 2.5.5
       turbo-windows-64: 2.5.5
       turbo-windows-arm64: 2.5.5
+
+  typescript@5.3.3: {}
+
+  undici-types@5.26.5: {}
