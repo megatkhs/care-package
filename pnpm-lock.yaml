@@ -9,10 +9,10 @@ importers:
   .:
     devDependencies:
       '@biomejs/biome':
-        specifier: ^2.1.2
+        specifier: 2.1.2
         version: 2.1.2
       turbo:
-        specifier: ^2.5.5
+        specifier: 2.5.5
         version: 2.5.5
 
   packages/admin: {}
