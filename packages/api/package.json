@@ -1,13 +1,25 @@
 {
-  "name": "api",
+  "name": "@care-package/api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API server for Care Package",
+  "main": "dist/index.js",
   "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "type-check": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["care-package", "api", "hono"],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "@care-package/shared": "workspace:*",
+    "@hono/node-server": "1.14.0",
+    "@types/node": "22.10.7",
+    "hono": "4.6.18",
+    "tsx": "4.20.3",
+    "typescript": "5.7.3"
+  }
 }
