@@ -8,9 +8,16 @@
     "start": "tsx src/index.ts",
     "build": "tsc",
     "type-check": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["care-package", "api", "hono"],
+  "keywords": [
+    "care-package",
+    "api",
+    "hono"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
@@ -18,8 +25,15 @@
     "@care-package/shared": "workspace:*",
     "@hono/node-server": "1.14.0",
     "@types/node": "22.10.7",
+    "dotenv": "17.2.0",
+    "drizzle-orm": "0.44.3",
     "hono": "4.6.18",
+    "pg": "8.16.3",
     "tsx": "4.20.3",
     "typescript": "5.7.3"
+  },
+  "devDependencies": {
+    "@types/pg": "8.15.4",
+    "drizzle-kit": "0.31.4"
   }
 }
