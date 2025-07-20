@@ -3,10 +3,12 @@ import { authApi } from '../lib/api';
 
 interface User {
   id: string;
+  username?: string;
   email: string;
   name: string;
   picture?: string;
   role: string;
+  userType: 'admin' | 'user';
   isActive: boolean;
   createdAt: string;
 }
@@ -14,7 +16,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (token: string) => void;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -38,9 +40,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const login = (token: string) => {
-    localStorage.setItem('auth_token', token);
-    checkAuth();
+  const login = async (username: string, password: string): Promise<boolean> => {
+    try {
+      const response = await authApi.login(username, password);
+      const { token, user: userData } = response.data;
+      
+      localStorage.setItem('auth_token', token);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+      
+      return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    }
   };
 
   const logout = async () => {
@@ -88,7 +101,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin',
+    isAdmin: user?.userType === 'admin',
   };
 
   return (

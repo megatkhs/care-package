@@ -36,8 +36,12 @@ api.interceptors.response.use(
 
 // API関数
 export const authApi = {
-  me: () => api.get('/auth/me'),
+  login: (username: string, password: string) => 
+    api.post('/auth/admin/login', { username, password }),
+  me: () => api.get('/auth/admin/me'),
   logout: () => api.post('/auth/logout'),
+  createAdmin: (data: { username: string; email: string; password: string; name: string }) => 
+    api.post('/auth/admin/create', data),
 };
 
 export const adminApi = {
