@@ -2,12 +2,15 @@ import { compare, hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { sign, verify } from 'jsonwebtoken';
-import { admins, db, users } from '../db';
+import { admins, db } from '../db';
 import type { AuthPayload } from '../middleware/auth';
 
 const auth = new Hono();
 
-const jwtSecret = process.env.JWT_SECRET!;
+const jwtSecret = process.env.JWT_SECRET;
+if (!jwtSecret) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 // 管理者ログイン
 auth.post('/admin/login', async (c) => {

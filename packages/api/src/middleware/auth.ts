@@ -50,7 +50,7 @@ export const authMiddleware: MiddlewareHandler = async (c, next) => {
 
     c.set('user', payload);
     await next();
-  } catch (error) {
+  } catch (_error) {
     return c.json({ error: 'Invalid token' }, 401);
   }
 };
