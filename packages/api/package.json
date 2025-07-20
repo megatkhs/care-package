@@ -24,15 +24,18 @@
   "dependencies": {
     "@care-package/shared": "workspace:*",
     "@hono/node-server": "1.14.0",
+    "@hono/oauth-providers": "0.8.2",
     "@types/node": "22.10.7",
     "dotenv": "17.2.0",
     "drizzle-orm": "0.44.3",
     "hono": "4.6.18",
+    "jsonwebtoken": "9.0.2",
     "pg": "8.16.3",
     "tsx": "4.20.3",
     "typescript": "5.7.3"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "9.0.10",
     "@types/pg": "8.15.4",
     "drizzle-kit": "0.31.4"
   }

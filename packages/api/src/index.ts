@@ -2,7 +2,12 @@ import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { config } from 'dotenv';
 import { admin } from './routes/admin';
+import { auth } from './routes/auth';
+
+// 環境変数を読み込み
+config();
 
 const app = new Hono();
 
@@ -30,7 +35,8 @@ app.get('/api', (c) => {
   });
 });
 
-// 管理者向けAPI
+// API ルート
+app.route('/api/auth', auth);
 app.route('/api/admin', admin);
 
 const port = Number(process.env.PORT) || 8000;
