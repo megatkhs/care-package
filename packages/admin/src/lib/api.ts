@@ -1,0 +1,49 @@
+import axios from 'axios';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000,
+});
+
+// リクエストインターセプター（JWTトークンを自動で追加）
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// レスポンスインターセプター（401エラーでログアウト）
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+// API関数
+export const authApi = {
+  me: () => api.get('/auth/me'),
+  logout: () => api.post('/auth/logout'),
+};
+
+export const adminApi = {
+  getDashboard: () => api.get('/admin/dashboard'),
+  getUsers: () => api.get('/admin/users'),
+  getUser: (id: string) => api.get(`/admin/users/${id}`),
+  getStores: () => api.get('/admin/stores'),
+  getStore: (id: string) => api.get(`/admin/stores/${id}`),
+};
