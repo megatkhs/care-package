@@ -73,7 +73,6 @@ auth.get('/admin/me', async (c) => {
   const token = authHeader.slice(7);
 
   try {
-    const { verify } = await import('jsonwebtoken');
     const payload = verify(token, jwtSecret) as AuthPayload;
 
     if (payload.userType !== 'admin') {
@@ -105,6 +104,7 @@ auth.get('/admin/me', async (c) => {
       },
     });
   } catch (error) {
+    console.error('JWT verification error:', error);
     return c.json({ error: 'Invalid token' }, 401);
   }
 });
