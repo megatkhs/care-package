@@ -1,3 +1,5 @@
+import { format, formatISO } from 'date-fns';
+
 // APIレスポンス作成ヘルパー
 export function createSuccessResponse<T>(data: T, message?: string) {
   return {
@@ -17,11 +19,11 @@ export function createErrorResponse(error: string, message?: string) {
 
 // 日付ユーティリティ
 export function formatDate(date: Date): string {
-  return date.toISOString().split('T')[0];
+  return format(date, 'yyyy-MM-dd');
 }
 
 export function formatDateTime(date: Date): string {
-  return date.toISOString();
+  return formatISO(date);
 }
 
 // バリデーションヘルパー
