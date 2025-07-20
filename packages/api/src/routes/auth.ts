@@ -1,7 +1,7 @@
 import { compare, hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { Hono } from 'hono';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { admins, db, users } from '../db';
 import type { AuthPayload } from '../middleware/auth';
 
