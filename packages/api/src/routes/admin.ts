@@ -1,7 +1,7 @@
+import { and, count, eq } from 'drizzle-orm';
 import { Hono } from 'hono';
-import { db, users, stores } from '../db';
-import { authMiddleware, adminOnlyMiddleware } from '../middleware/auth';
-import { eq, count, and } from 'drizzle-orm';
+import { db, stores, users } from '../db';
+import { adminOnlyMiddleware, authMiddleware } from '../middleware/auth';
 
 const admin = new Hono();
 
@@ -24,10 +24,12 @@ admin.get('/dashboard', async (c) => {
     const newUsersThisMonthResult = await db
       .select({ count: count() })
       .from(users)
-      .where(and(
-        eq(users.isActive, true),
-        // createdAt >= thisMonth の条件を追加したいところですが、簡略化
-      ));
+      .where(
+        and(
+          eq(users.isActive, true)
+          // createdAt >= thisMonth の条件を追加したいところですが、簡略化
+        )
+      );
 
     return c.json({
       stats: {
@@ -37,9 +39,17 @@ admin.get('/dashboard', async (c) => {
         newUsersThisMonth: newUsersThisMonthResult[0].count, // 暫定
       },
       recentActivity: [
-        { type: 'user_created', message: '新しいユーザーが登録されました', timestamp: new Date().toISOString() },
-        { type: 'store_updated', message: '店舗情報が更新されました', timestamp: new Date().toISOString() },
-      ]
+        {
+          type: 'user_created',
+          message: '新しいユーザーが登録されました',
+          timestamp: new Date().toISOString(),
+        },
+        {
+          type: 'store_updated',
+          message: '店舗情報が更新されました',
+          timestamp: new Date().toISOString(),
+        },
+      ],
     });
   } catch (error) {
     console.error('Dashboard error:', error);

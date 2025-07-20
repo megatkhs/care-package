@@ -15,13 +15,13 @@ export interface User extends BaseEntity {
 
 export enum UserRole {
   ADMIN = 'admin',
-  STORE_OWNER = 'store_owner'
+  STORE_OWNER = 'store_owner',
 }
 
 export enum UserStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
-  SUSPENDED = 'suspended'
+  SUSPENDED = 'suspended',
 }
 
 // 店舗関連型
@@ -38,7 +38,7 @@ export interface Store extends BaseEntity {
 export enum StoreStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
-  PENDING_APPROVAL = 'pending_approval'
+  PENDING_APPROVAL = 'pending_approval',
 }
 
 export interface Address {
@@ -52,7 +52,7 @@ export interface Address {
 
 export interface BusinessHours {
   dayOfWeek: number; // 0=日曜 1=月曜...
-  openTime: string;  // "09:00"
+  openTime: string; // "09:00"
   closeTime: string; // "18:00"
   isClosed: boolean;
 }

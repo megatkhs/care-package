@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -27,8 +27,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">アクセス権限がありません</h1>
           <p className="text-gray-600 mb-4">このページにアクセスするには管理者権限が必要です。</p>
-          <button 
-            onClick={() => window.location.href = '/login'}
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = '/login';
+            }}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             ログインページに戻る

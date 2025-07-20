@@ -26,6 +26,7 @@
     "@hono/node-server": "1.14.0",
     "@hono/oauth-providers": "0.8.2",
     "@types/node": "22.10.7",
+    "bcryptjs": "3.0.2",
     "dotenv": "17.2.0",
     "drizzle-orm": "0.44.3",
     "hono": "4.6.18",
@@ -35,6 +36,7 @@
     "typescript": "5.7.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "3.0.0",
     "@types/jsonwebtoken": "9.0.10",
     "@types/pg": "8.15.4",
     "drizzle-kit": "0.31.4"

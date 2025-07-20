@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
 import DashboardPage from './pages/DashboardPage';
-import UsersPage from './pages/UsersPage';
+import LoginPage from './pages/LoginPage';
 import StoresPage from './pages/StoresPage';
+import UsersPage from './pages/UsersPage';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           {/* パブリックルート */}
           <Route path="/login" element={<LoginPage />} />
-          
+
           {/* 保護されたルート */}
           <Route
             path="/*"
@@ -29,12 +29,15 @@ function App() {
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="stores" element={<StoresPage />} />
-            <Route path="settings" element={
-              <div className="text-center py-12">
-                <h1 className="text-2xl font-bold text-gray-900">設定</h1>
-                <p className="text-gray-600 mt-2">設定画面は開発中です</p>
-              </div>
-            } />
+            <Route
+              path="settings"
+              element={
+                <div className="text-center py-12">
+                  <h1 className="text-2xl font-bold text-gray-900">設定</h1>
+                  <p className="text-gray-600 mt-2">設定画面は開発中です</p>
+                </div>
+              }
+            />
           </Route>
         </Routes>
       </Router>

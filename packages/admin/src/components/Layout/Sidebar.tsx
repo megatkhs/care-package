@@ -1,12 +1,6 @@
-import React from 'react';
+import { DashboardIcon, ExitIcon, GearIcon, HomeIcon, PersonIcon } from '@radix-ui/react-icons';
+import type React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  DashboardIcon, 
-  PersonIcon, 
-  HomeIcon,
-  GearIcon,
-  ExitIcon
-} from '@radix-ui/react-icons';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar: React.FC = () => {
@@ -50,7 +44,7 @@ const Sidebar: React.FC = () => {
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
-            
+
             return (
               <li key={item.path}>
                 <Link
@@ -73,6 +67,7 @@ const Sidebar: React.FC = () => {
       {/* ログアウト */}
       <div className="p-4 border-t border-gray-700">
         <button
+          type="button"
           onClick={logout}
           className="flex items-center px-4 py-3 w-full text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
         >

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { adminApi } from '../lib/api';
 
 interface Store {
@@ -38,9 +39,11 @@ const StoresPage: React.FC = () => {
 
   const getStatusBadge = (isActive: boolean) => {
     return (
-      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-        isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-      }`}>
+      <span
+        className={`px-2 py-1 text-xs font-medium rounded-full ${
+          isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+        }`}
+      >
         {isActive ? 'アクティブ' : '無効'}
       </span>
     );
@@ -71,11 +74,9 @@ const StoresPage: React.FC = () => {
 
       <div className="bg-white shadow rounded-lg">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-900">
-            店舗一覧 ({stores.length}件)
-          </h2>
+          <h2 className="text-lg font-medium text-gray-900">店舗一覧 ({stores.length}件)</h2>
         </div>
-        
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -102,9 +103,7 @@ const StoresPage: React.FC = () => {
                 <tr key={store.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {store.name}
-                      </div>
+                      <div className="text-sm font-medium text-gray-900">{store.name}</div>
                       {store.description && (
                         <div className="text-sm text-gray-500 max-w-xs truncate">
                           {store.description}
@@ -120,30 +119,20 @@ const StoresPage: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
                       {store.ownerName && (
-                        <div className="text-sm font-medium text-gray-900">
-                          {store.ownerName}
-                        </div>
+                        <div className="text-sm font-medium text-gray-900">{store.ownerName}</div>
                       )}
                       {store.ownerEmail && (
-                        <div className="text-sm text-gray-500">
-                          {store.ownerEmail}
-                        </div>
+                        <div className="text-sm text-gray-500">{store.ownerEmail}</div>
                       )}
                     </div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
-                      {store.phone && (
-                        <div>📞 {store.phone}</div>
-                      )}
-                      {store.email && (
-                        <div>✉️ {store.email}</div>
-                      )}
+                      {store.phone && <div>📞 {store.phone}</div>}
+                      {store.email && <div>✉️ {store.email}</div>}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {getStatusBadge(store.isActive)}
-                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(store.isActive)}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(store.createdAt).toLocaleDateString('ja-JP')}
                   </td>
@@ -151,7 +140,7 @@ const StoresPage: React.FC = () => {
               ))}
             </tbody>
           </table>
-          
+
           {stores.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500">店舗が見つかりません</p>
