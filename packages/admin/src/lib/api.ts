@@ -25,7 +25,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // ログインエンドポイント以外で401が発生した場合のみログアウト
+    if (error.response?.status === 401 && !error.config?.url?.includes('/auth/admin/login')) {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('user');
       window.location.href = '/login';

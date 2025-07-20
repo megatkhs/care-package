@@ -1,5 +1,5 @@
 import type React from 'react';
-import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { authApi } from '../lib/api';
 
 interface User {
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     const token = localStorage.getItem('auth_token');
     if (!token) {
       setLoading(false);
@@ -84,13 +84,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(userData));
     } catch (error) {
       console.error('Auth check failed:', error);
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('user');
-      setUser(null);
+      // トークンが無効な場合のみクリア（ネットワークエラー等は保持）
+      if (error.response?.status === 401) {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+        setUser(null);
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     checkAuth();

@@ -121,7 +121,10 @@ const DashboardPage: React.FC = () => {
           {recentActivity.length > 0 ? (
             <div className="space-y-4">
               {recentActivity.map((activity, index) => (
-                <div key={`${activity.type}-${activity.timestamp}-${index}`} className="flex items-start space-x-3">
+                <div
+                  key={`${activity.type}-${activity.timestamp}-${index}`}
+                  className="flex items-start space-x-3"
+                >
                   <div className="flex-shrink-0">
                     <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
                   </div>
