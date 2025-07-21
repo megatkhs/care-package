@@ -15,6 +15,13 @@
       "when": 1753012611100,
       "tag": "0001_wealthy_black_cat",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753109591099,
+      "tag": "0002_nappy_black_queen",
+      "breakpoints": true
     }
   ]
 }
