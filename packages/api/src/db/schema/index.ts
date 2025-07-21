@@ -18,12 +18,11 @@ export * from './invitation';
 
 // ユーザーテーブル（customer, invitationを参照）
 // 循環参照回避のため、invitationIdの外部キー制約は後から追加
-import { users } from './user';
+import { foreignKey } from 'drizzle-orm/pg-core';
 import { invitations } from './invitation';
+import { users } from './user';
 export { users } from './user';
 export type { User, NewUser } from './user';
-
-import { foreignKey } from 'drizzle-orm/pg-core';
 
 export const userInvitationFK = foreignKey({
   columns: [users.invitationId],

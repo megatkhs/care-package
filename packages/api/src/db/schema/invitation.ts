@@ -1,7 +1,7 @@
 import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 import { admins } from './admin';
-import { customers } from './customer';
 import { contracts } from './contract';
+import { customers } from './customer';
 import { stores } from './store';
 
 export const invitations = pgTable('invitations', {
