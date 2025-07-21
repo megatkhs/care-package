@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Auth check failed:', error);
       // トークンが無効な場合のみクリア（ネットワークエラー等は保持）
-      if (error.response?.status === 401) {
+      if (error instanceof Error && 'response' in error && (error as any).response?.status === 401) {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
         setUser(null);
