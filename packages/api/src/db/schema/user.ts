@@ -1,5 +1,6 @@
 import { boolean, pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 import { customers } from './customer';
+import { invitations } from './invitation';
 
 // 店舗オーナーユーザーテーブル（Google OAuth用）
 export const users = pgTable('users', {
@@ -10,7 +11,7 @@ export const users = pgTable('users', {
   picture: text('picture'),
   role: varchar('role', { length: 20 }).notNull().default('store_owner'), // 'store_owner' のみ
   customerId: uuid('customer_id').references(() => customers.id),
-  invitationId: uuid('invitation_id'), // 外部キー制約は index.ts で定義
+  invitationId: uuid('invitation_id').references(() => invitations.id),
   onboardingCompleted: boolean('onboarding_completed').notNull().default(false),
   isActive: boolean('is_active').notNull().default(true),
   createdAt: timestamp('created_at').defaultNow().notNull(),
