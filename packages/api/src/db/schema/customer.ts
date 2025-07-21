@@ -1,5 +1,4 @@
-import { date, decimal, pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
-import { admins } from './admin';
+import { date, decimal, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 // 契約者テーブル
 export const customers = pgTable('customers', {
