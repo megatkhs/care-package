@@ -4,48 +4,25 @@
 // 基本テーブル（依存関係なし）
 export * from './admin';
 
-// 顧客関連（adminを参照）
-export { customers, contracts } from './customer';
-export type { Customer, NewCustomer, Contract, NewContract } from './customer';
+// 顧客テーブル（adminを参照）
+export * from './customer';
+
+// 契約テーブル（customerを参照）
+export * from './contract';
 
 // 店舗テーブル（customerを参照）
 export * from './store';
 
 // 招待テーブル（admin, customer, store, contractを参照）
-import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
-import { admins } from './admin';
-import { customers, contracts } from './customer';
-import { stores } from './store';
-
-export const invitations = pgTable('invitations', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  customerId: uuid('customer_id')
-    .references(() => customers.id)
-    .notNull(),
-  storeId: uuid('store_id').references(() => stores.id),
-  contractId: uuid('contract_id').references(() => contracts.id),
-  invitationToken: varchar('invitation_token', { length: 255 }).unique().notNull(),
-  status: varchar('status', { length: 20 }).notNull().default('pending'), // pending, sent, accepted, expired, cancelled
-  expiresAt: timestamp('expires_at').notNull(),
-  invitedBy: uuid('invited_by')
-    .references(() => admins.id)
-    .notNull(),
-  invitedAt: timestamp('invited_at').defaultNow().notNull(),
-  acceptedAt: timestamp('accepted_at'),
-  notes: text('notes'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
-});
-
-export type Invitation = typeof invitations.$inferSelect;
-export type NewInvitation = typeof invitations.$inferInsert;
+export * from './invitation';
 
 // ユーザーテーブル（customer, invitationを参照）
+// 循環参照回避のため、invitationIdの外部キー制約は後から追加
 import { users } from './user';
+import { invitations } from './invitation';
 export { users } from './user';
 export type { User, NewUser } from './user';
 
-// usersテーブルの外部キー制約を後から追加（循環参照回避）
 import { foreignKey } from 'drizzle-orm/pg-core';
 
 export const userInvitationFK = foreignKey({
