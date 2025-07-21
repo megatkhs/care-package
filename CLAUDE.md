@@ -209,3 +209,38 @@ care-package/
 4. **最新バージョンインストール**: 最新バージョンをインストールする際はバージョン指定せず`-E`フラグのみ使用
 5. **技術選定**: 不明確な部分については憶測で対応せず、必ず人間に確認を求めること
 
+### コード品質管理
+Biomeを使用したコード品質管理コマンドが利用可能です：
+
+**ワークスペース全体での実行**:
+```bash
+pnpm lint        # 全パッケージでlintチェック
+pnpm check       # 全パッケージでlint + formatチェック
+pnpm format      # 全パッケージでフォーマット実行
+```
+
+**個別パッケージでの実行**:
+```bash
+# 例：adminパッケージのみ
+pnpm --filter=@care-package/admin lint
+pnpm --filter=@care-package/admin check
+pnpm --filter=@care-package/admin format
+
+# 例：apiパッケージのみ
+pnpm --filter=@care-package/api lint
+```
+
+**各パッケージ内での実行**:
+```bash
+cd packages/admin
+pnpm lint       # Biome lintチェック
+pnpm check      # Biome check（lint + format）
+pnpm format     # Biome フォーマット
+```
+
+**開発時の推奨フロー**:
+1. コード変更後、必ず `pnpm check` でlint/formatチェック
+2. エラーがある場合は `pnpm format` で自動修正
+3. 手動修正が必要な場合は適切に対応
+4. コミット前に再度 `pnpm check` で確認
+
