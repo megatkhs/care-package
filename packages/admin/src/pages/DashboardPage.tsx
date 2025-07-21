@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { adminApi } from '../lib/api';
 
 interface DashboardStats {
@@ -15,44 +15,26 @@ interface RecentActivity {
   timestamp: string;
 }
 
-const DashboardPage: React.FC = () => {
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface DashboardData {
+  stats: DashboardStats;
+  recentActivity: RecentActivity[];
+}
 
-  useEffect(() => {
-    const fetchDashboard = async () => {
-      try {
-        const response = await adminApi.getDashboard();
-        setStats(response.data.stats);
-        setRecentActivity(response.data.recentActivity);
-      } catch (err) {
-        setError('ダッシュボードデータの取得に失敗しました');
-        console.error('Dashboard fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
+export const dashboardLoader = async (): Promise<DashboardData> => {
+  try {
+    const response = await adminApi.getDashboard();
+    return {
+      stats: response.data.stats,
+      recentActivity: response.data.recentActivity,
     };
-
-    fetchDashboard();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">読み込み中...</div>
-      </div>
-    );
+  } catch (error) {
+    console.error('Dashboard fetch error:', error);
+    throw new Response('ダッシュボードデータの取得に失敗しました', { status: 500 });
   }
+};
 
-  if (error) {
-    return (
-      <div className="bg-red-50 border border-red-200 rounded-md p-4">
-        <div className="text-red-800">{error}</div>
-      </div>
-    );
-  }
+const DashboardPage: React.FC = () => {
+  const { stats, recentActivity } = useLoaderData() as DashboardData;
 
   return (
     <div className="space-y-6">

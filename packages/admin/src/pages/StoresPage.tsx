@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { adminApi } from '../lib/api';
 
 interface Store {
@@ -16,26 +16,18 @@ interface Store {
   ownerEmail?: string;
 }
 
+export const storesLoader = async (): Promise<{ stores: Store[] }> => {
+  try {
+    const response = await adminApi.getStores();
+    return { stores: response.data.stores };
+  } catch (error) {
+    console.error('Stores fetch error:', error);
+    throw new Response('店舗情報の取得に失敗しました', { status: 500 });
+  }
+};
+
 const StoresPage: React.FC = () => {
-  const [stores, setStores] = useState<Store[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const response = await adminApi.getStores();
-        setStores(response.data.stores);
-      } catch (err) {
-        setError('店舗情報の取得に失敗しました');
-        console.error('Stores fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStores();
-  }, []);
+  const { stores } = useLoaderData() as { stores: Store[] };
 
   const getStatusBadge = (isActive: boolean) => {
     return (
@@ -48,22 +40,6 @@ const StoresPage: React.FC = () => {
       </span>
     );
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">読み込み中...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="bg-red-50 border border-red-200 rounded-md p-4">
-        <div className="text-red-800">{error}</div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">

@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { adminApi } from '../lib/api';
 
 interface User {
@@ -12,26 +12,18 @@ interface User {
   updatedAt: string;
 }
 
+export const usersLoader = async (): Promise<{ users: User[] }> => {
+  try {
+    const response = await adminApi.getUsers();
+    return { users: response.data.users };
+  } catch (error) {
+    console.error('Users fetch error:', error);
+    throw new Response('ユーザー情報の取得に失敗しました', { status: 500 });
+  }
+};
+
 const UsersPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await adminApi.getUsers();
-        setUsers(response.data.users);
-      } catch (err) {
-        setError('ユーザー情報の取得に失敗しました');
-        console.error('Users fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const { users } = useLoaderData() as { users: User[] };
 
   const getRoleBadge = (role: string) => {
     const styles = {
@@ -64,22 +56,6 @@ const UsersPage: React.FC = () => {
       </span>
     );
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">読み込み中...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="bg-red-50 border border-red-200 rounded-md p-4">
-        <div className="text-red-800">{error}</div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">
