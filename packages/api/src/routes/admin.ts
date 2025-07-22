@@ -127,7 +127,7 @@ admin.get('/stores', async (c) => {
         ownerEmail: users.email,
       })
       .from(stores)
-      .leftJoin(users, eq(stores.ownerId, users.id))
+      .leftJoin(users, eq(stores.customerId, users.customerId))
       .orderBy(stores.createdAt);
 
     return c.json({ stores: allStores });
@@ -159,7 +159,7 @@ admin.get('/stores/:id', async (c) => {
         ownerEmail: users.email,
       })
       .from(stores)
-      .leftJoin(users, eq(stores.ownerId, users.id))
+      .leftJoin(users, eq(stores.customerId, users.customerId))
       .where(eq(stores.id, id))
       .limit(1);
 
