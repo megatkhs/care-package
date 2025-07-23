@@ -6,41 +6,28 @@
       {
         "id": "060de2bed2b85377",
         "type": "tabs",
+        "dimension": 63.689604685212295,
         "children": [
-          {
-            "id": "97e92b1cf35ffc8a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "プロジェクト概要.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "プロジェクト概要"
-            }
-          },
           {
             "id": "6db99b270eca1890",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "技術スタック.md",
+                "file": "5_decisions/0003-adopt-hono-web-framework.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "技術スタック"
+              "title": "0003-adopt-hono-web-framework"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "5e166862b6ff8999",
         "type": "tabs",
+        "dimension": 36.310395314787705,
         "children": [
           {
             "id": "98939f43c207cf43",
@@ -201,9 +188,27 @@
   },
   "active": "6db99b270eca1890",
   "lastOpenFiles": [
-    "プロジェクト概要.md",
+    "5_decisions/0001-adr-template.md",
+    "5_decisions/0002-use-turborepo-for-monorepo.md",
+    "5_decisions/0003-adopt-hono-web-framework.md",
+    "3_guides/getting_started.md",
+    "2_architecture/system_overview.md",
+    "2_architecture/database.md",
+    "1_introduction/development_phases.md",
+    "1_introduction/overview.md",
+    "1_introduction/tech_stack.md",
+    "1_introduction/user_flows.md",
     "技術スタック.md",
+    "5_decisions",
+    "4_specs",
+    "3_guides",
+    "2_architecture",
+    "1_introduction",
+    "プロジェクト概要.md",
+    "開発フェーズ.md",
     "USER_FLOWS.md",
+    "データベース設計.md",
+    "技術スタック.md.tmp.80884.1753272964433",
     "Welcome.md"
   ]
 }
