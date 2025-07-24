@@ -14,8 +14,8 @@ interface User {
 
 export const usersLoader = async (): Promise<{ users: User[] }> => {
   try {
-    const response = await adminApi.getUsers();
-    return { users: response.data.users };
+    const response = await adminApi.getUsers().json<{ users: User[] }>();
+    return { users: response.users };
   } catch (error) {
     console.error('Users fetch error:', error);
     throw new Response('ユーザー情報の取得に失敗しました', { status: 500 });
