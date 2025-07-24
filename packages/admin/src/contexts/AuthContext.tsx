@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { HTTPError } from 'ky';
 import type React from 'react';
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { authApi } from '../lib/api';
@@ -44,8 +44,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await authApi.login(username, password);
-      const { token, user: userData } = response.data;
+      const response = await authApi
+        .login(username, password)
+        .json<{ token: string; user: User }>();
+      const { token, user: userData } = response;
 
       localStorage.setItem('auth_token', token);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -79,14 +81,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     try {
-      const response = await authApi.me();
-      const userData = response.data.user;
+      const response = await authApi.me().json<{ user: User }>();
+      const userData = response.user;
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
     } catch (error) {
       console.error('Auth check failed:', error);
       // トークンが無効な場合のみクリア（ネットワークエラー等は保持）
-      if (error instanceof AxiosError && error.response?.status === 401) {
+      if (error instanceof HTTPError && error.response?.status === 401) {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
         setUser(null);
