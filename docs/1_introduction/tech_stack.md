@@ -113,7 +113,7 @@ graph TB
 
 ### 💻 フロントエンド共通
 - **[[React Router]]**: SPA routing (管理サイト用)
-- **[[Axios]]**: API通信
+- **[[ky]]**: API通信 (モダンな`fetch`ベースのクライアント)
 - **[[Material-UI]] または [[Tailwind CSS]]**: UI components
 - **[[React Hook Form]]**: フォーム管理
 
