@@ -93,3 +93,6 @@ pnpm-debug.log*
 
 # OS
 Thumbs.db
+
+# Obsidian files
+docs/.obsidian/
