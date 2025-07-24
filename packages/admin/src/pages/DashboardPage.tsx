@@ -22,10 +22,12 @@ interface DashboardData {
 
 export const dashboardLoader = async (): Promise<DashboardData> => {
   try {
-    const response = await adminApi.getDashboard();
+    const response = await adminApi
+      .getDashboard()
+      .json<{ stats: DashboardStats; recentActivity: RecentActivity[] }>();
     return {
-      stats: response.data.stats,
-      recentActivity: response.data.recentActivity,
+      stats: response.stats,
+      recentActivity: response.recentActivity,
     };
   } catch (error) {
     console.error('Dashboard fetch error:', error);

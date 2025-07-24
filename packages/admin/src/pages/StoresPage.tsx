@@ -18,8 +18,8 @@ interface Store {
 
 export const storesLoader = async (): Promise<{ stores: Store[] }> => {
   try {
-    const response = await adminApi.getStores();
-    return { stores: response.data.stores };
+    const response = await adminApi.getStores().json<{ stores: Store[] }>();
+    return { stores: response.stores };
   } catch (error) {
     console.error('Stores fetch error:', error);
     throw new Response('店舗情報の取得に失敗しました', { status: 500 });
